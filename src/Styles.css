@@ -127,7 +127,7 @@ button.operator:hover {
 }
 
 .result-operation-matrix {
-    width: 340px;
+    width: 512px;
     display: flex;
     align-items: center;
 }
