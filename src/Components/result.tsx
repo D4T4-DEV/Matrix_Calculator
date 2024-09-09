@@ -1,5 +1,6 @@
 import { decimalToFrac } from "../Calcs/decimalToFrac";
 import { ResultProps } from "../Interfaces/Props/resultadoProp";
+import ChildrenComponent from "./childrenComponent";
 
 const Result: React.FC<ResultProps> = ({ operationResult, error }) => {
 
@@ -11,7 +12,7 @@ const Result: React.FC<ResultProps> = ({ operationResult, error }) => {
 
   return (
     <div className="area-result">
-      <h1 className="title">Resultado</h1>
+      <ChildrenComponent>Resultado</ChildrenComponent>
       {error ? (
         <p className="error-msg" data-testid="error-operation">{error}</p>
       ) : (
@@ -21,7 +22,7 @@ const Result: React.FC<ResultProps> = ({ operationResult, error }) => {
               <div key={rowIndex} className="matrix-row">
                 {row.map((value, colIndex) => (
                   <span key={colIndex} className="matrix-value">
-                    [{Number.isInteger(value)? value : decimalToFrac(value)}]
+                    [{Number.isInteger(value) ? value : decimalToFrac(value)}]
                   </span>
                 ))}
               </div>
