@@ -2,7 +2,7 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-# Instrucciones 
+## Instrucciones 
 
 - Para poder utilizar mi proyecto debes primero descargar las siguientes dependencias:
 
