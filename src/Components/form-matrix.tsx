@@ -8,6 +8,10 @@ import Result from "./result";
 
 
 export const MatrizForm: React.FC = () => {
+
+  const maxValueMatrix: number = 3;
+  const minValueMatrix: number = 1; 
+
   const [rowsA, setRowsA] = useState<number>(1);
   const [colsA, setColsA] = useState<number>(1);
   const [rowsB, setRowsB] = useState<number>(1);
@@ -32,7 +36,7 @@ export const MatrizForm: React.FC = () => {
 
 
   const handleChangeDimension = (e: ChangeEvent<HTMLInputElement>, type: 'cols' | 'rows', mat: 'A' | 'B') => {
-    const value = Math.max(1, Math.min(parseInt(e.target.value, 10), 4));
+    const value = Math.max(minValueMatrix, Math.min(parseInt(e.target.value, 10), maxValueMatrix));
 
     if (type === 'rows') {
       if (mat === 'A') {
@@ -133,8 +137,8 @@ export const MatrizForm: React.FC = () => {
           placeholder="Rows"
           value={rowsA.toString()}
           onChange={(e) => handleChangeDimension(e, 'rows', 'A')}
-          min={1}
-          max={4}
+          min={minValueMatrix}
+          max={maxValueMatrix}
         />
         <p className="tachita">×</p>
         <Input
@@ -144,8 +148,8 @@ export const MatrizForm: React.FC = () => {
           placeholder="Cols"
           value={colsA.toString()}
           onChange={(e) => handleChangeDimension(e, 'cols', 'A')}
-          min={1}
-          max={4}
+          min={minValueMatrix}
+          max={maxValueMatrix}
         />
       </div>
 
@@ -168,8 +172,8 @@ export const MatrizForm: React.FC = () => {
           placeholder="Rows"
           value={rowsB.toString()}
           onChange={(e) => handleChangeDimension(e, 'rows', 'B')}
-          min={1}
-          max={4}
+          min={minValueMatrix}
+          max={maxValueMatrix}
         />
         <p className="tachita">×</p>
         <Input
@@ -179,8 +183,8 @@ export const MatrizForm: React.FC = () => {
           placeholder="Cols"
           value={colsB.toString()}
           onChange={(e) => handleChangeDimension(e, 'cols', 'B')}
-          min={1}
-          max={4}
+          min={minValueMatrix}
+          max={maxValueMatrix}
         />
       </div>
 
