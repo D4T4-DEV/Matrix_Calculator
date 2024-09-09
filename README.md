@@ -46,5 +46,5 @@ This template provides a minimal setup to get React working in Vite with HMR and
   npx vitest 
 ```
 
--- Icono:
+- Icono:
 https://www.flaticon.es/icono-gratis/matriz_2628320
