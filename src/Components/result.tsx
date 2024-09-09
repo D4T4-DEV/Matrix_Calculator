@@ -1,3 +1,4 @@
+import { decimalToFrac } from "../Calcs/decimalToFrac";
 import { ResultProps } from "../Interfaces/Props/resultadoProp";
 
 const Result: React.FC<ResultProps> = ({ operationResult, error }) => {
@@ -20,7 +21,7 @@ const Result: React.FC<ResultProps> = ({ operationResult, error }) => {
               <div key={rowIndex} className="matrix-row">
                 {row.map((value, colIndex) => (
                   <span key={colIndex} className="matrix-value">
-                    [{value}]
+                    [{Number.isInteger(value)? value : decimalToFrac(value)}]
                   </span>
                 ))}
               </div>
