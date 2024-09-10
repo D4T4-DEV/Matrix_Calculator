@@ -37,6 +37,7 @@ export const MatrizForm: React.FC = () => {
   }, [rowsB, colsB]);
 
 
+  // Cambia las dimensiones para mostrar la matriz
   const handleChangeDimension = (e: ChangeEvent<HTMLInputElement>, type: 'cols' | 'rows', mat: 'A' | 'B') => {
 
     // Limita el numero que se puede asignar a la seleccion de matrices
@@ -58,12 +59,14 @@ export const MatrizForm: React.FC = () => {
     }
   };
 
+  // Obtiene los valores asignados a la matriz (de cada fila y renglon)
   const getMatrixObject = (matrix: string[][]): Matrix => ({
     row: matrix.length,
     col: matrix[0].length,
     matriz: matrix.map((row) => row.map((value) => parseFloat(value) || 0)),
   });
 
+  // Cambio en los inputs de la matriz
   const handleMatrixChange = (updatedMatrix: string[][], type: string) => {
     switch (type) {
       case "A":
@@ -76,6 +79,7 @@ export const MatrizForm: React.FC = () => {
     }
   };
 
+  // Define el evento para una operacion por un boton
   const handleOperation = (type: string) => {
     try {
       const matA = getMatrixObject(matrix1);
@@ -176,7 +180,7 @@ export const MatrizForm: React.FC = () => {
           type="number"
           placeholder="Cols"
           value={colsA.toString()}
-          onChange={(e) => handleChangeDimension(e, 'cols', 'A')}
+          onChange={(e) => handleChangeDimension(e, 'cols', 'A')/* Medio para cambiarle la dimension y saber el numero que debe tener max y min*/}
           min={minValueMatrix}
           max={maxValueMatrix}
         />
@@ -189,7 +193,7 @@ export const MatrizForm: React.FC = () => {
           rows={rowsA}
           cols={colsA}
           matrix={matrix1}
-          onMatrixChange={(updatedMatrix) => handleMatrixChange(updatedMatrix, 'A')}
+          onMatrixChange={(updatedMatrix) => handleMatrixChange(updatedMatrix, 'A') /* Medio para actualizar los valores existentes*/}
         />
       </div>
 

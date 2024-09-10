@@ -10,7 +10,7 @@ const MatrixComponent: React.FC<MatrixProps> = ({ matrix, onMatrixChange }) => {
   const limitPositive: number = 100;
 
   // Verificacion de los indices existentes de una matriz y actualicacion de los datos dentro de esta
-  // Si no hay esto no se cambia los valores 
+  // Si no hay otro valor devuelve el valor que se encontraba
   const handleChange = (row: number, col: number, value: string) => {
     const updatedMatrix = matrix.map((r, rowIndex) =>
       rowIndex === row ? r.map((c, colIndex) => (colIndex === col ? value : c)) : r
