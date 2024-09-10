@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Matrix } from "../Interfaces/matrix";
-import { dividirMatrices, inversaMatriz, multiplicarMatrices, restarMatrices, sumarMatrices } from "../Calcs/operations";
+import { dividirMatrices, inversaMatriz, multiplicarMatrices, obtenerDeterminante, restarMatrices, sumarMatrices } from "../Calcs/operations";
 import MatrixComponent from "../Components/personalizateMatrix";
 import Input from "./input_component";
 import Button from "./button_component";
@@ -23,6 +23,8 @@ export const MatrizForm: React.FC = () => {
   const [operationResult, setOperationResult] = useState<number[][] | null>(null);
 
   const [error, setError] = useState<string | null>(null);
+
+  const [determinant, setDeterminant] = useState<string | undefined>(undefined);
 
 
   // Cambios de handleChangeDimension a los hooks para entrar en los requerimiento del profesor
@@ -79,6 +81,7 @@ export const MatrizForm: React.FC = () => {
       const matA = getMatrixObject(matrix1);
       const matB = getMatrixObject(matrix2);
       let result;
+      let deter;
 
       switch (type) {
         case "+":
@@ -102,12 +105,15 @@ export const MatrizForm: React.FC = () => {
         case 'A':
           {
             result = inversaMatriz(matA);
+            deter = `Determinante A: ${obtenerDeterminante(matA)}`;
+            
             break;
           }
 
         case 'B':
           {
             result = inversaMatriz(matB);
+            deter = `Determinante B: ${obtenerDeterminante(matB)}`
             break;
           }
 
@@ -115,6 +121,7 @@ export const MatrizForm: React.FC = () => {
           {
             // Representacion: A / B
             result = dividirMatrices(matA, matB);
+            deter = `Determinante B: ${obtenerDeterminante(matB)}`;
             break;
           }
 
@@ -122,6 +129,7 @@ export const MatrizForm: React.FC = () => {
           {
             // Representacion: B / A
             result = dividirMatrices(matB, matA);
+            deter = `Determinante A: ${obtenerDeterminante(matA)}`;
             break;
           }
       }
@@ -129,6 +137,10 @@ export const MatrizForm: React.FC = () => {
       if (result?.matriz) {
         setOperationResult(result.matriz);
       }
+
+      // Aspecto para mostrar el determinante (si existe algo se lo asigna si no es undefined)
+      setDeterminant(deter);
+
       setError(null);
     } catch (e: unknown) {
 
@@ -231,7 +243,7 @@ export const MatrizForm: React.FC = () => {
         </div>
       </div>
 
-      <Result error={error ?? undefined} operationResult={operationResult ?? []} />
+      <Result error={error ?? undefined} operationResult={operationResult ?? []} determinant={determinant ?? undefined} />
     </div>
   );
 };

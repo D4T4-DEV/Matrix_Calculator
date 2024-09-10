@@ -2,7 +2,7 @@ import { decimalToFrac } from "../Calcs/decimalToFrac";
 import { ResultProps } from "../Interfaces/Props/resultadoProp";
 import ChildrenComponent from "./childrenComponent";
 
-const Result: React.FC<ResultProps> = ({ operationResult, error }) => {
+const Result: React.FC<ResultProps> = ({ operationResult, error, determinant }) => {
 
   // Verifica si la matriz tiene al menos una fila y entre una y tres columnas
   const matrizDeSoloUnaColumna = operationResult !== undefined &&
@@ -29,6 +29,9 @@ const Result: React.FC<ResultProps> = ({ operationResult, error }) => {
                 ))}
               </div>
             ))}
+            <span>
+              {determinant}
+            </span>
           </div>
         )
       )}
