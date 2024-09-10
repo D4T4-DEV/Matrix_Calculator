@@ -110,6 +110,7 @@ export function inversaMatriz(A: Matrix): Matrix {
     const identidad: number[][] = Array.from({ length: filas }, (_, i) =>
         Array.from({ length: columnas }, (_, j) => (i === j ? 1 : 0))
     );
+    // el medio "_" significa que no se utilizara ese campo
 
     // Creacion de la copia de la matriz para operar con ella
     const copiaMatriz: number[][] = matriz.map(row => [...row]);
