@@ -157,9 +157,9 @@ export function inversaMatriz(A: Matrix): Matrix {
 // https://www.youtube.com/watch?v=zmugcYjv6xU
 export function dividirMatrices(numerador: Matrix, denominador: Matrix): Matrix {
     
-    // Inversa de B
-    const inversaDenominador = inversaMatriz(denominador); // Data la formula X = A^(-1) * B o B^(-1) * A
+    // Inversa del denominador
+    const inversaDenominador = inversaMatriz(denominador); // Data la formula X = Numerador / Denominador
 
-    // Multiplicar A por la inversa de B
+    // Multiplicar numerador por la inversa del denominador
     return multiplicarMatrices(numerador, inversaDenominador);
 }
