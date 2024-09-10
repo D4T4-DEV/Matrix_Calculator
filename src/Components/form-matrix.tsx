@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Matrix } from "../Interfaces/matrix";
-import { inversaMatriz, multiplicarMatrices, restarMatrices, sumarMatrices } from "../Calcs/operations";
+import { dividirMatrices, inversaMatriz, multiplicarMatrices, restarMatrices, sumarMatrices } from "../Calcs/operations";
 import MatrixComponent from "../Components/personalizateMatrix";
 import Input from "./input_component";
 import Button from "./button_component";
@@ -10,7 +10,7 @@ import Result from "./result";
 export const MatrizForm: React.FC = () => {
 
   const maxValueMatrix: number = 3;
-  const minValueMatrix: number = 1; 
+  const minValueMatrix: number = 1;
 
   const [rowsA, setRowsA] = useState<number>(1);
   const [colsA, setColsA] = useState<number>(1);
@@ -36,7 +36,7 @@ export const MatrizForm: React.FC = () => {
 
 
   const handleChangeDimension = (e: ChangeEvent<HTMLInputElement>, type: 'cols' | 'rows', mat: 'A' | 'B') => {
-    
+
     // Limita el numero que se puede asignar a la seleccion de matrices
     const value = Math.max(minValueMatrix, Math.min(parseInt(e.target.value, 10), maxValueMatrix));
     // parseInt(e.target.value, 10) -> Convierte el valor en base 10
@@ -110,9 +110,23 @@ export const MatrizForm: React.FC = () => {
             result = inversaMatriz(matB);
             break;
           }
+
+        case 'Num-B':
+          {
+            // Representacion: A / B
+            result = dividirMatrices(matA, matB);
+            break;
+          }
+
+        case 'Num-A':
+          {
+            // Representacion: B / A
+            result = dividirMatrices(matB, matA);
+            break;
+          }
       }
 
-      if(result?.matriz){
+      if (result?.matriz) {
         setOperationResult(result.matriz);
       }
       setError(null);
@@ -205,10 +219,18 @@ export const MatrizForm: React.FC = () => {
         <Button title="Sumar" value="+" onClick={() => handleOperation('+')} />
         <Button title="Restar" value="-" onClick={() => handleOperation('-')} />
         <Button title="Multiplicar" value="×" onClick={() => handleOperation('*')} />
+        
+        <div>
         <Button title="Inversa de la matriz A" value="A^(-1)" onClick={() => handleOperation('A')} />
         <Button title="Inversa de la matriz B" value="B^(-1)" onClick={() => handleOperation('B')} />
+        </div>
+
+        <div>
+        <Button title="Division de A/B = A × B^(-1)" value="A/B" onClick={() => handleOperation('Num-B')} />
+        <Button title="Division de B/A = B × A^(-1)" value="B/A" onClick={() => handleOperation('Num-A')} />
+        </div>
       </div>
-      
+
       <Result error={error ?? undefined} operationResult={operationResult ?? []} />
     </div>
   );

@@ -153,11 +153,13 @@ export function inversaMatriz(A: Matrix): Matrix {
 }
 
 
-export function dividirMatrices(A: Matrix, B: Matrix): Matrix {
+// Consulta: https://economipedia.com/definiciones/division-de-matrices.html
+// https://www.youtube.com/watch?v=zmugcYjv6xU
+export function dividirMatrices(numerador: Matrix, denominador: Matrix): Matrix {
     
     // Inversa de B
-    const inversaB = inversaMatriz(B); // Data la formula X = A^(-1) * B o B^(-1) * A
+    const inversaDenominador = inversaMatriz(denominador); // Data la formula X = A^(-1) * B o B^(-1) * A
 
     // Multiplicar A por la inversa de B
-    return multiplicarMatrices(A, inversaB);
+    return multiplicarMatrices(numerador, inversaDenominador);
 }
