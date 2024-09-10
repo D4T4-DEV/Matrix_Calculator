@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 const ChildrenComponent: React.FC<{ children: ReactNode }> = ({ children }) => {
-    return <h1 className="title">{children}</h1> ;
+    return <div>{children}</div> ;
 }
 
 export default ChildrenComponent;

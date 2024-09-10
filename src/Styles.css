@@ -5,6 +5,12 @@ body {
     min-height: 100vh;
 }
 
+.container-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 button {
     background-color: #444;
     color: white;
@@ -176,7 +182,7 @@ button.operator:hover {
         max-width: none;
     }
 
-    .result-operation-matrix span{
+    .result-operation-matrix span {
         font-size: 13.5px;
     }
 }

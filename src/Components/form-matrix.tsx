@@ -127,7 +127,7 @@ export const MatrizForm: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="container-app">
       {/* Lugar de selectores de tamaño*/}
       <div className="fil-col-input">
         <Input

@@ -12,7 +12,9 @@ const Result: React.FC<ResultProps> = ({ operationResult, error }) => {
 
   return (
     <div className="area-result">
-      <ChildrenComponent>Resultado</ChildrenComponent>
+      <ChildrenComponent>
+        <h1 className="title">Resultado</h1>
+      </ChildrenComponent>
       {error ? (
         <p className="error-msg" data-testid="error-operation">{error}</p>
       ) : (
