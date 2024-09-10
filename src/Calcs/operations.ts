@@ -1,4 +1,5 @@
 import { Matrix } from "../Interfaces/matrix";
+import { det } from 'mathjs';
 
 // Explicacion con video
 // https://www.youtube.com/watch?v=sPFjVxnF71c
@@ -14,7 +15,7 @@ export function sumarMatrices(A: Matrix, B: Matrix): Matrix {
         throw new Error("Las matrices deben tener las mismas dimensiones");
     }
 
-        // Inicializacion de un array con valores en cada elemento de "0"
+    // Inicializacion de un array con valores en cada elemento de "0"
     const resultado: number[][] = Array.from({ length: filasA }, () => Array(columnasA).fill(0));
 
     for (let i = 0; i < filasA; i++) {
@@ -106,7 +107,7 @@ export function inversaMatriz(A: Matrix): Matrix {
     }
 
     // Creacion de la matriz de indentidad (de la dimension pasada)
-        // consulta: https://www.uv.mx/personal/aherrera/files/2014/08/08a-MATRICES-1.pdf (visitado el 07/09/24)
+    // consulta: https://www.uv.mx/personal/aherrera/files/2014/08/08a-MATRICES-1.pdf (visitado el 07/09/24)
     const identidad: number[][] = Array.from({ length: filas }, (_, i) =>
         Array.from({ length: columnas }, (_, j) => (i === j ? 1 : 0))
     );
@@ -116,12 +117,12 @@ export function inversaMatriz(A: Matrix): Matrix {
     const copiaMatriz: number[][] = matriz.map(row => [...row]);
 
     // Aplicar el método de Gauss-Jordan para encontrar la inversa 
-        // consulta: https://repositorio-uapa.cuaieed.unam.mx/repositorio/moodle/pluginfile.php/2611/mod_resource/content/1/UAPA-Eliminacion%20Gaussiana-Metodo-Gauss-Jordan/index.html#:~:text=M%C3%A9todo%20Gauss%2DJordan,de%20soluci%C3%B3n%20de%20la%20ecuaci%C3%B3n.
-        // (visitado el 07/09/24)
+    // consulta: https://repositorio-uapa.cuaieed.unam.mx/repositorio/moodle/pluginfile.php/2611/mod_resource/content/1/UAPA-Eliminacion%20Gaussiana-Metodo-Gauss-Jordan/index.html#:~:text=M%C3%A9todo%20Gauss%2DJordan,de%20soluci%C3%B3n%20de%20la%20ecuaci%C3%B3n.
+    // (visitado el 07/09/24)
     for (let i = 0; i < filas; i++) {
         // Encontrar el pivote
-            // consulta: https://www.mathway.com/es/examples/linear-algebra/matrices/finding-the-pivot-positions-and-pivot-columns?id=780#:~:text=Las%20posiciones%20de%20pivote%20son,tienen%20una%20posici%C3%B3n%20de%20pivote.
-            // (visitado el 07/09/24) 
+        // consulta: https://www.mathway.com/es/examples/linear-algebra/matrices/finding-the-pivot-positions-and-pivot-columns?id=780#:~:text=Las%20posiciones%20de%20pivote%20son,tienen%20una%20posici%C3%B3n%20de%20pivote.
+        // (visitado el 07/09/24) 
         const pivote = copiaMatriz[i][i];
         if (pivote === 0) {
             throw new Error("La matriz no es invertible porque su determinante es cero.");
@@ -156,10 +157,16 @@ export function inversaMatriz(A: Matrix): Matrix {
 // Consulta: https://economipedia.com/definiciones/division-de-matrices.html
 // https://www.youtube.com/watch?v=zmugcYjv6xU
 export function dividirMatrices(numerador: Matrix, denominador: Matrix): Matrix {
-    
+
     // Inversa del denominador
     const inversaDenominador = inversaMatriz(denominador); // Data la formula X = Numerador / Denominador
 
     // Multiplicar numerador por la inversa del denominador
     return multiplicarMatrices(numerador, inversaDenominador);
+}
+
+
+// Utilizamos la libreria de mathjs
+export function obtenerDeterminante(matriz: Matrix): number {
+    return det(matriz.matriz);
 }
