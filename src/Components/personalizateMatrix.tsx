@@ -2,7 +2,7 @@ import React, { ChangeEvent } from "react";
 import Input from "./input_component";
 import { MatrixProps } from "../Interfaces/Props/MatrizProp";
 
-
+                                      //  Matriz representada, Cambios de valor
 const MatrixComponent: React.FC<MatrixProps> = ({ matrix, onMatrixChange }) => {
 
   // Variables que delimitan el numero posible

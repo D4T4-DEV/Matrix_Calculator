@@ -36,7 +36,10 @@ export const MatrizForm: React.FC = () => {
 
 
   const handleChangeDimension = (e: ChangeEvent<HTMLInputElement>, type: 'cols' | 'rows', mat: 'A' | 'B') => {
+    
+    // Limita el numero que se puede asignar a la seleccion de matrices
     const value = Math.max(minValueMatrix, Math.min(parseInt(e.target.value, 10), maxValueMatrix));
+    // parseInt(e.target.value, 10) -> Convierte el valor en base 10
 
     if (type === 'rows') {
       if (mat === 'A') {
