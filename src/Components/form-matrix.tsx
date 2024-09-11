@@ -38,28 +38,28 @@ export const MatrizForm: React.FC = () => {
 
 
   // Cambia las dimensiones para mostrar la matriz
-    const handleChangeDimension = (e: ChangeEvent<HTMLInputElement>, type: 'cols' | 'rows', mat: 'A' | 'B') => {
-      // Limita el numero que se puede asignar a la seleccion de matrices
-      const value = Math.max(minValueMatrix, Math.min(parseInt(e.target.value, 10), maxValueMatrix));
-      // parseInt(e.target.value, 10) -> Convierte el valor en base 10
+  const handleChangeDimension = (e: ChangeEvent<HTMLInputElement>, type: 'cols' | 'rows', mat: 'A' | 'B') => {
+    // Limita el numero que se puede asignar a la seleccion de matrices
+    const value = Math.max(minValueMatrix, Math.min(parseInt(e.target.value, 10), maxValueMatrix));
+    // parseInt(e.target.value, 10) -> Convierte el valor en base 10
 
-      // Checamos que el valor si no existe se le asigne algo
-      const checkValue = !Number.isNaN(value) ? value : 0;
+    // Checamos que el valor si no existe se le asigne algo
+    const checkValue = !Number.isNaN(value) ? value : 0;
 
-      if (type === 'rows') {
-        if (mat === 'A') {
-          setRowsA(checkValue);
-        } else if (mat === 'B') {
-          setRowsB(checkValue);
-        }
-      } else if (type === 'cols') {
-        if (mat === 'A') {
-          setColsA(checkValue);
-        } else if (mat === 'B') {
-          setColsB(checkValue);
-        }
+    if (type === 'rows') {
+      if (mat === 'A') {
+        setRowsA(checkValue);
+      } else if (mat === 'B') {
+        setRowsB(checkValue);
       }
-    };
+    } else if (type === 'cols') {
+      if (mat === 'A') {
+        setColsA(checkValue);
+      } else if (mat === 'B') {
+        setColsB(checkValue);
+      }
+    }
+  };
 
   // Obtiene los valores asignados a la matriz (de cada fila y renglon)
   const getMatrixObject = (matrix: string[][]): Matrix => ({
@@ -153,7 +153,12 @@ export const MatrizForm: React.FC = () => {
       //  e: unknown -> Error desconocido
       // e instanceof  Error -> Verificacion que sea de la clase "Error" (clase que se utiliza en los errores y medios trycatch)
       if (e instanceof Error) {
-        setError(e.message);
+
+        if (e.message === `Cannot read properties of undefined (reading 'length')`) {
+          setError("Alguna de las matrices no esta definida");
+        } else {
+          setError(e.message);
+        }
 
       } else {
         setError("Un error no identificado ha ocurrido");
