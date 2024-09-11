@@ -29,7 +29,7 @@ const Result: React.FC<ResultProps> = ({ operationResult, error, determinant }) 
                 ))}
               </div>
             ))}
-            <span>
+            <span data-testid="determinant">
               {determinant}
             </span>
           </div>

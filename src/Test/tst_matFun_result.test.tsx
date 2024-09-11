@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { sumarMatrices, restarMatrices, multiplicarMatrices, inversaMatriz, dividirMatrices } from '../Calcs/operations';
+import { sumarMatrices, restarMatrices, multiplicarMatrices, inversaMatriz, dividirMatrices, obtenerDeterminante } from '../Calcs/operations';
 import { Matrix } from '../Interfaces/matrix';
 
 // Datos de ejemplo para matrices 1x1
@@ -138,5 +138,20 @@ describe('Funciones de Matrices', () => {
         const resultadoEsperado = multiplicarMatrices(A3x3, inversaB3x3);
         const resultado = dividirMatrices(A3x3, B3x3);
         expect(resultado).toEqual(resultadoEsperado);
+    });
+
+    it('Calcular el determinante de matriz 3x3', ()=>{
+        const determinante = obtenerDeterminante(B3x3);
+        expect(determinante).toEqual(0);
+    });
+
+    it('Calcular el determinante de matriz 2x2', ()=>{
+        const determinante = obtenerDeterminante(B2x2);
+        expect(determinante).toEqual(-2);
+    });
+
+    it('Calcular el determinante de matriz 1x1', ()=>{
+        const determinante = obtenerDeterminante(A1x1);
+        expect(determinante).toEqual(3);
     });
 });

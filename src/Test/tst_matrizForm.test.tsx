@@ -83,7 +83,7 @@ describe('Componente de MatrizForm', () => {
   test('Realizar las operaciones inversas con el valor default y que este de error', () => {
     render(<MatrizForm />);
 
-// Verifica que se haya realizado la operacion de la inversa y que este presente un parametro como error en el DOM
+    // Verifica que se haya realizado la operacion de la inversa y que este presente un parametro como error en el DOM
     const inverseA = screen.getByRole('button', { name: 'A^(-1)' });
     fireEvent.click(inverseA);
 
@@ -101,5 +101,69 @@ describe('Componente de MatrizForm', () => {
     // Verifica que haya errores, ya que esta operacion deberia de dar error y estar ahi
     const errorInversaG = screen.queryByTestId('error-operation');
     expect(errorInversaG).toBeInTheDocument();
+  });
+
+  test('Verificar que la inversa de A, contenga la etiqueta del determinante', () => {
+    // Renderizado del componente
+    render(<MatrizForm />);
+
+    // Obtiene el valor de referencia
+    const Input1_1MatrizA = screen.getAllByPlaceholderText('1, 1')[0];
+    // Cambia el valor del input 1, 1 de la matriz A
+    fireEvent.change(Input1_1MatrizA, { target: { value: '1' } });
+
+    // Obtenemos la referencia del boton
+    const inverseA = screen.getByRole('button', { name: 'A^(-1)' });
+    fireEvent.click(inverseA);
+
+    const resultDeterminant = screen.queryByTestId('determinant');
+    expect(resultDeterminant).toBeInTheDocument();
+  });
+
+  test('Verificar que la inversa de B, contenga la etiqueta del determinante', () => {
+    // Renderizado del componente
+    render(<MatrizForm />);
+
+    // Obtiene el valor de referencia
+    const Input1_1MatrizB = screen.getAllByPlaceholderText('1, 1')[1];
+    // Cambia el valor del input 1, 1 de la matriz B
+    fireEvent.change(Input1_1MatrizB, { target: { value: '1' } });
+
+    // Obtenemos la referencia del boton
+    const inverseB = screen.getByRole('button', { name: 'B^(-1)' });
+    fireEvent.click(inverseB);
+
+    const resultDeterminant = screen.queryByTestId('determinant');
+    expect(resultDeterminant).toBeInTheDocument();
+  });
+
+  test('Verificar que las divisiones de A/B y B/A, contenga la etiqueta del determinante', () => {
+    // Renderizado del componente
+    render(<MatrizForm />);
+
+    // Obtiene el valor de referencia
+    const Input1_1MatrizA = screen.getAllByPlaceholderText('1, 1')[0];
+    // Cambia el valor del input 1, 1 de la matriz A
+    fireEvent.change(Input1_1MatrizA, { target: { value: '1' } });
+
+    const Input1_1MatrizB = screen.getAllByPlaceholderText('1, 1')[1];
+
+    // Cambia el valor del input 1, 1 de la matriz B
+    fireEvent.change(Input1_1MatrizB, { target: { value: '1' } });
+
+    // Obtenemos la referencia del boton A/B
+    const divisionA_B = screen.getByRole('button', { name: 'A/B' });
+    fireEvent.click(divisionA_B);
+
+    // Toma la referencia del componente del span
+    const resultDeterminantOperationOne = screen.queryByTestId('determinant');
+    expect(resultDeterminantOperationOne).toBeInTheDocument();
+
+    // Obtenemos la referencia del boton B/A
+    const divisionB_A = screen.getByRole('button', { name: 'B/A' });
+    fireEvent.click(divisionB_A);
+
+    const resultDeterminantOperationTwo = screen.queryByTestId('determinant');
+    expect(resultDeterminantOperationTwo).toBeInTheDocument();
   });
 });
