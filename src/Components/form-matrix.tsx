@@ -10,7 +10,7 @@ import Result from "./result";
 export const MatrizForm: React.FC = () => {
 
   const maxValueMatrix: number = 3;
-  const minValueMatrix: number = 1;
+  const minValueMatrix: number = 0;
 
   const [rowsA, setRowsA] = useState<number>(1);
   const [colsA, setColsA] = useState<number>(1);
@@ -38,26 +38,28 @@ export const MatrizForm: React.FC = () => {
 
 
   // Cambia las dimensiones para mostrar la matriz
-  const handleChangeDimension = (e: ChangeEvent<HTMLInputElement>, type: 'cols' | 'rows', mat: 'A' | 'B') => {
+    const handleChangeDimension = (e: ChangeEvent<HTMLInputElement>, type: 'cols' | 'rows', mat: 'A' | 'B') => {
+      // Limita el numero que se puede asignar a la seleccion de matrices
+      const value = Math.max(minValueMatrix, Math.min(parseInt(e.target.value, 10), maxValueMatrix));
+      // parseInt(e.target.value, 10) -> Convierte el valor en base 10
 
-    // Limita el numero que se puede asignar a la seleccion de matrices
-    const value = Math.max(minValueMatrix, Math.min(parseInt(e.target.value, 10), maxValueMatrix));
-    // parseInt(e.target.value, 10) -> Convierte el valor en base 10
+      // Checamos que el valor si no existe se le asigne algo
+      const checkValue = !Number.isNaN(value) ? value : 0;
 
-    if (type === 'rows') {
-      if (mat === 'A') {
-        setRowsA(value);
-      } else if (mat === 'B') {
-        setRowsB(value);
+      if (type === 'rows') {
+        if (mat === 'A') {
+          setRowsA(checkValue);
+        } else if (mat === 'B') {
+          setRowsB(checkValue);
+        }
+      } else if (type === 'cols') {
+        if (mat === 'A') {
+          setColsA(checkValue);
+        } else if (mat === 'B') {
+          setColsB(checkValue);
+        }
       }
-    } else if (type === 'cols') {
-      if (mat === 'A') {
-        setColsA(value);
-      } else if (mat === 'B') {
-        setColsB(value);
-      }
-    }
-  };
+    };
 
   // Obtiene los valores asignados a la matriz (de cada fila y renglon)
   const getMatrixObject = (matrix: string[][]): Matrix => ({
@@ -110,7 +112,7 @@ export const MatrizForm: React.FC = () => {
           {
             result = inversaMatriz(matA);
             deter = `Determinante A: ${obtenerDeterminante(matA)}`;
-            
+
             break;
           }
 
@@ -168,7 +170,7 @@ export const MatrizForm: React.FC = () => {
           className="inp-rows"
           type="number"
           placeholder="Rows"
-          value={rowsA.toString()}
+          value={rowsA > 0 ? rowsA.toString() : ''}
           onChange={(e) => handleChangeDimension(e, 'rows', 'A')}
           min={minValueMatrix}
           max={maxValueMatrix}
@@ -179,7 +181,7 @@ export const MatrizForm: React.FC = () => {
           className="inp-cols"
           type="number"
           placeholder="Cols"
-          value={colsA.toString()}
+          value={colsA > 0 ? colsA.toString() : ''}
           onChange={(e) => handleChangeDimension(e, 'cols', 'A')/* Medio para cambiarle la dimension y saber el numero que debe tener max y min*/}
           min={minValueMatrix}
           max={maxValueMatrix}
@@ -203,7 +205,7 @@ export const MatrizForm: React.FC = () => {
           className="inp-rows"
           type="number"
           placeholder="Rows"
-          value={rowsB.toString()}
+          value={rowsB > 0 ? rowsB.toString() : ''}
           onChange={(e) => handleChangeDimension(e, 'rows', 'B')}
           min={minValueMatrix}
           max={maxValueMatrix}
@@ -214,7 +216,7 @@ export const MatrizForm: React.FC = () => {
           type="number"
           className="inp-cols"
           placeholder="Cols"
-          value={colsB.toString()}
+          value={colsB > 0 ? colsB.toString() : ''}
           onChange={(e) => handleChangeDimension(e, 'cols', 'B')}
           min={minValueMatrix}
           max={maxValueMatrix}
@@ -235,15 +237,15 @@ export const MatrizForm: React.FC = () => {
         <Button title="Sumar" value="+" onClick={() => handleOperation('+')} />
         <Button title="Restar" value="-" onClick={() => handleOperation('-')} />
         <Button title="Multiplicar" value="×" onClick={() => handleOperation('*')} />
-        
+
         <div>
-        <Button title="Inversa de la matriz A" value="A^(-1)" onClick={() => handleOperation('A')} />
-        <Button title="Inversa de la matriz B" value="B^(-1)" onClick={() => handleOperation('B')} />
+          <Button title="Inversa de la matriz A" value="A^(-1)" onClick={() => handleOperation('A')} />
+          <Button title="Inversa de la matriz B" value="B^(-1)" onClick={() => handleOperation('B')} />
         </div>
 
         <div>
-        <Button title="Division de A/B = A × B^(-1)" value="A/B" onClick={() => handleOperation('Num-B')} />
-        <Button title="Division de B/A = B × A^(-1)" value="B/A" onClick={() => handleOperation('Num-A')} />
+          <Button title="Division de A/B = A × B^(-1)" value="A/B" onClick={() => handleOperation('Num-B')} />
+          <Button title="Division de B/A = B × A^(-1)" value="B/A" onClick={() => handleOperation('Num-A')} />
         </div>
       </div>
 
